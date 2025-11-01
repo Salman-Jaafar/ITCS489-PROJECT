@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>LMS - Admin Dashboard</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+	<link rel="stylesheet" type="text/css" href="../css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="../icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+	<div id="header-wrap">
+		<div class="top-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+					</div>
+					<div class="col-md-6">
+						<div class="right-element">
+							<div class="dropdown">
+								<a href="#" class="user-account" data-bs-toggle="dropdown">
+									<i class="icon icon-user"></i> Admin <i class="icon icon-chevron-down"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#"><i class="icon icon-settings"></i> Settings</a></li>
+									<li><a class="dropdown-item" href="#"><i class="icon icon-user"></i> Profile</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="../templates/login.html"><i class="icon icon-log-out"></i> Logout</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand" href="#">
+					<img src="../images/main-logo.png" alt="logo">
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Dashboard</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Librarians</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Reports</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Settings</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div><!--header-wrap-->
+
+	<section class="padding-large">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-header">
+						<h2>Admin Dashboard</h2>
+					</div>
+				</div>
+			</div>
+
+			<!-- Stats Cards -->
+			<div class="row mb-4">
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-users"></i> Total Librarians</h5>
+							<h2 class="card-text">15</h2>
+							<p class="text-muted">2 new this month</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-books"></i> Total Books</h5>
+							<h2 class="card-text">1,234</h2>
+							<p class="text-muted">50 added this month</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-user"></i> Total Members</h5>
+							<h2 class="card-text">450</h2>
+							<p class="text-muted">15 new this month</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-coin-dollar"></i> Total Revenue</h5>
+							<h2 class="card-text">$2,500</h2>
+							<p class="text-muted">From fines and fees</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Librarians Management -->
+			<div class="row mb-4">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header d-flex justify-content-between align-items-center">
+							<h5 class="mb-0">Manage Librarians</h5>
+							<button class="btn btn-dark btn-sm">Add New Librarian</button>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th>Phone</th>
+											<th>Status</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>L001</td>
+											<td>John Doe</td>
+											<td>john@library.com</td>
+											<td>+123-456-7890</td>
+											<td><span class="badge bg-success">Active</span></td>
+											<td>
+												<button class="btn btn-sm btn-outline-primary"><i class="icon icon-pencil"></i></button>
+												<button class="btn btn-sm btn-outline-danger"><i class="icon icon-bin"></i></button>
+											</td>
+										</tr>
+										<!-- Add more rows as needed -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Reports -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h5>Recent Reports</h5>
+						</div>
+						<div class="card-body">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">Monthly Revenue Report</h6>
+										<small>3 days ago</small>
+									</div>
+									<p class="mb-1">Revenue analysis for October 2025</p>
+								</a>
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">Book Inventory Report</h6>
+										<small>5 days ago</small>
+									</div>
+									<p class="mb-1">Complete inventory status</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h5>System Logs</h5>
+						</div>
+						<div class="card-body">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">New Librarian Added</h6>
+										<small>2 hours ago</small>
+									</div>
+									<p class="mb-1">Sarah Johnson was added as a librarian</p>
+								</a>
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">System Backup</h6>
+										<small>12 hours ago</small>
+									</div>
+									<p class="mb-1">Automatic system backup completed</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="footer-item">
+						<div class="company-brand">
+							<img src="../images/main-logo.png" alt="logo" class="footer-logo">
+							<p>Library Management System</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu">
+						<h5>Quick Links</h5>
+						<ul class="menu-list">
+							<li class="menu-item">
+								<a href="#">Librarians</a>
+							</li>
+							<li class="menu-item">
+								<a href="#">Reports</a>
+							</li>
+							<li class="menu-item">
+								<a href="#">Settings</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="footer-item">
+						<h5>System Status</h5>
+						<div class="row">
+							<div class="col-md-6">
+								<p><i class="icon icon-check text-success"></i> Database: Connected</p>
+								<p><i class="icon icon-check text-success"></i> Backup: Up to date</p>
+							</div>
+							<div class="col-md-6">
+								<p><i class="icon icon-check text-success"></i> Security: Active</p>
+								<p><i class="icon icon-check text-success"></i> System: Running</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright">
+						<p>© 2025 Library Management System. All rights reserved.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-1.11.0.min.js"></script>
+	<script src="../js/modernizr.js"></script>
+	<script src="../js/plugins.js"></script>
+	<script src="../js/slideNav.min.js"></script>
+	<script src="../js/script.js"></script>
+</body>
+
+</html>

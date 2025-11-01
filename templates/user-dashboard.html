@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>LMS - User Dashboard</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="../icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="../css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+	<div id="header-wrap">
+		<div class="top-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+					</div>
+					<div class="col-md-6">
+						<div class="right-element">
+							<div class="dropdown">
+								<a href="#" class="user-account" data-bs-toggle="dropdown">
+									<i class="icon icon-user"></i> John Doe <i class="icon icon-chevron-down"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#"><i class="icon icon-user"></i> Profile</a></li>
+									<li><a class="dropdown-item" href="#"><i class="icon icon-books"></i> My Books</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="templates/login.html"><i class="icon icon-log-out"></i> Logout</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand" href="#">
+					<img src="../images/main-logo.png" alt="logo">
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Dashboard</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Browse Books</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">My Books</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">History</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div><!--header-wrap-->
+
+	<section class="padding-large">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-header">
+						<h2>My Library Dashboard</h2>
+					</div>
+				</div>
+			</div>
+
+			<!-- User Stats -->
+			<div class="row mb-4">
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-book"></i> Books Borrowed</h5>
+							<h2 class="card-text">3</h2>
+							<p class="text-muted">Out of 5 allowed</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-history"></i> Due Soon</h5>
+							<h2 class="card-text">1</h2>
+							<p class="text-muted">Due in 3 days</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-bookmark"></i> Reserved</h5>
+							<h2 class="card-text">2</h2>
+							<p class="text-muted">In waiting list</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title"><i class="icon icon-coin-dollar"></i> Fines</h5>
+							<h2 class="card-text">$0.00</h2>
+							<p class="text-muted">No pending fines</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Currently Borrowed Books -->
+			<div class="row mb-4">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h5>Currently Borrowed Books</h5>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Book Title</th>
+											<th>Borrowed Date</th>
+											<th>Due Date</th>
+											<th>Status</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>The Great Gatsby</td>
+											<td>Oct 15, 2025</td>
+											<td>Nov 15, 2025</td>
+											<td><span class="badge bg-success">On Time</span></td>
+											<td>
+												<button class="btn btn-sm btn-outline-primary">Renew</button>
+												<button class="btn btn-sm btn-outline-success">Return</button>
+											</td>
+										</tr>
+										<!-- Add more rows as needed -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Reading History and Recommendations -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h5>Reading History</h5>
+						</div>
+						<div class="card-body">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">1984</h6>
+										<small>Returned Oct 1</small>
+									</div>
+									<p class="mb-1">George Orwell</p>
+								</a>
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">To Kill a Mockingbird</h6>
+										<small>Returned Sep 15</small>
+									</div>
+									<p class="mb-1">Harper Lee</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h5>Recommended Books</h5>
+						</div>
+						<div class="card-body">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">Brave New World</h6>
+										<span class="badge bg-info">Available</span>
+									</div>
+									<p class="mb-1">Aldous Huxley</p>
+								</a>
+								<a href="#" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-1">Animal Farm</h6>
+										<span class="badge bg-info">Available</span>
+									</div>
+									<p class="mb-1">George Orwell</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="footer-item">
+						<div class="company-brand">
+							<img src="../images/main-logo.png" alt="logo" class="footer-logo">
+							<p>Library Management System</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu">
+						<h5>Quick Links</h5>
+						<ul class="menu-list">
+							<li class="menu-item">
+								<a href="#">Browse Books</a>
+							</li>
+							<li class="menu-item">
+								<a href="#">My Books</a>
+							</li>
+							<li class="menu-item">
+								<a href="#">Reading History</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="footer-item">
+						<h5>Library Hours</h5>
+						<div class="row">
+							<div class="col-md-6">
+								<p><strong>Weekdays:</strong> 8:00 AM - 8:00 PM</p>
+								<p><strong>Saturday:</strong> 9:00 AM - 5:00 PM</p>
+							</div>
+							<div class="col-md-6">
+								<p><strong>Sunday:</strong> 10:00 AM - 3:00 PM</p>
+								<p><strong>Holidays:</strong> Closed</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright">
+						<p>© 2025 Library Management System. All rights reserved.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-1.11.0.min.js"></script>
+	<script src="../js/modernizr.js"></script>
+	<script src="../js/plugins.js"></script>
+	<script src="../js/slideNav.min.js"></script>
+	<script src="../js/script.js"></script>
+</body>
+
+</html>
