@@ -1,0 +1,54 @@
+{
+  "stats": {
+    "totalBooks": 1234,
+    "activeMembers": 450,
+    "dueToday": 12,
+    "pendingFines": 156
+  },
+  "transactions": [
+    {
+      "id": "#TRX001",
+      "member": "Sarah Johnson",
+      "book": "The Great Gatsby",
+      "type": "Borrow",
+      "date": "2025-11-01",
+      "dueDate": "2025-12-01",
+      "status": "Active"
+    },
+    {
+      "id": "#TRX002",
+      "member": "John Smith",
+      "book": "1984",
+      "type": "Return",
+      "date": "2025-11-01",
+      "dueDate": null,
+      "status": "Returned"
+    }
+  ],
+  "dueBooks": [
+    {
+      "title": "The Catcher in the Rye",
+      "member": "Mike Wilson",
+      "memberId": "M0123",
+      "label": "Due Today"
+    },
+    {
+      "title": "To Kill a Mockingbird",
+      "member": "Emily Brown",
+      "memberId": "M0124",
+      "label": "Due Today"
+    }
+  ],
+  "activities": [
+    {
+      "title": "New Member Registration",
+      "time": "2 hours ago",
+      "description": "David Thompson registered as a new member"
+    },
+    {
+      "title": "Fine Payment",
+      "time": "4 hours ago",
+      "description": "Alice Johnson paid $5.00 in late fees"
+    }
+  ]
+}

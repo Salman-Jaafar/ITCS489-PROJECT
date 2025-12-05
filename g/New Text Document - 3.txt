@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>LMS - Pay Fines</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../icomoon/icomoon.css">
+    <link rel="stylesheet" type="text/css" href="../css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+    <div id="header-wrap">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="user-dashboard.html">
+                    <img src="../images/main-logo.png" alt="logo">
+                </a>
+                <div class="ms-auto">
+                    <a href="user-dashboard.html" class="btn btn-outline-dark">Cancel & Return</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <section class="padding-medium">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center mb-5" data-aos="fade-down">
+                    <h2 class="section-title">Settlement Center</h2>
+                    <p class="lead text-muted">Pay your outstanding fines to restore borrowing privileges</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-4" data-aos="fade-right">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Outstanding Fines</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="my-0">The Great Gatsby</h6>
+                                        <small class="text-muted">Overdue: 5 days</small>
+                                    </div>
+                                    <span class="text-danger">$2.50</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="my-0">1984</h6>
+                                        <small class="text-muted">Overdue: 2 days</small>
+                                    </div>
+                                    <span class="text-danger">$1.00</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span>Total (USD)</span>
+                                    <strong>$3.50</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0 text-white"><i class="icon icon-credit-card"></i> Payment Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="javascript:void(0);" onsubmit="processPayment()" class="needs-validation">
+                                <div class="mb-3">
+                                    <label for="cardName" class="form-label">Name on Card</label>
+                                    <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="cardNumber" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="expiry" class="form-label">Expiration</label>
+                                        <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <button class="btn btn-primary btn-full btn-lg" type="submit">Pay $3.50</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center py-5">
+                    <div class="mb-3">
+                        <i class="fas fa-check-circle fa-5x text-success"></i>
+                    </div>
+                    <h3>Payment Successful!</h3>
+                    <p class="text-muted">Your fines have been cleared.</p>
+                    <a href="user-dashboard.html" class="btn btn-outline-primary mt-3">Return to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/plugins.js"></script>
+    <script>
+        function processPayment() {
+            // Simulate processing delay
+            const btn = document.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                modal.show();
+                btn.innerHTML = 'Pay $3.50';
+                btn.disabled = false;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?php
+session_start();
+header('Content-Type: application/json');
+$pdo = require __DIR__ . '/db.php';
+
+$uid = null;
+if (isset($_GET['user_id'])) {
+    $uid = (int)$_GET['user_id'];
+} elseif (isset($_SESSION['user']) && isset($_SESSION['user']['id'])) {
+    $uid = (int)$_SESSION['user']['id'];
+}
+
+if (!$uid) {
+    http_response_code(400);
+    echo json_encode(['error' => 'user_id required']);
+    exit;
+}
+
+try {
+    $stmt = $pdo->prepare('SELECT COUNT(*) AS booksBorrowed FROM Loan L JOIN LoanItem LI ON LI.LoanID = L.LoanID WHERE L.UserID = ? AND L.ReturnDate IS NULL');
+    $stmt->execute([$uid]); $borrowed = $stmt->fetchColumn();
+
+    $stmt = $pdo->prepare('SELECT COUNT(*) AS dueSoon FROM Loan WHERE UserID = ? AND DueDate <= DATE_ADD(CURDATE(), INTERVAL 3 DAY) AND ReturnDate IS NULL');
+    $stmt->execute([$uid]); $dueSoon = $stmt->fetchColumn();
+
+    $stmt = $pdo->prepare('SELECT COUNT(*) AS reserved FROM Reservation WHERE UserID = ? AND Status = "Active"');
+    $stmt->execute([$uid]); $reserved = $stmt->fetchColumn();
+
+    $stmt = $pdo->prepare('SELECT IFNULL(SUM(Amount),0) AS pendingFines FROM Fine WHERE UserID = ? AND Status = "Unpaid"');
+    $stmt->execute([$uid]); $fines = $stmt->fetchColumn();
+
+    echo json_encode(['booksBorrowed' => (int)$borrowed, 'dueSoon' => (int)$dueSoon, 'reserved' => (int)$reserved, 'pendingFines' => (float)$fines]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Query failed', 'details' => $e->getMessage()]);
+}

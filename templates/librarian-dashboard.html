@@ -111,7 +111,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-books"></i> Total Books</h5>
-							<h2 class="card-text">1,234</h2>
+							<h2 class="card-text" id="total-books">—</h2>
 							<p class="text-muted">25 checked out today</p>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-users"></i> Active Members</h5>
-							<h2 class="card-text">450</h2>
+							<h2 class="card-text" id="active-members">—</h2>
 							<p class="text-muted">5 new today</p>
 						</div>
 					</div>
@@ -129,7 +129,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-warning"></i> Due Today</h5>
-							<h2 class="card-text">12</h2>
+							<h2 class="card-text" id="due-today">—</h2>
 							<p class="text-muted">Books to be returned</p>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-coin-dollar"></i> Pending Fines</h5>
-							<h2 class="card-text">$156</h2>
+							<h2 class="card-text" id="pending-fines">—</h2>
 							<p class="text-muted">From 8 members</p>
 						</div>
 					</div>
@@ -168,31 +168,8 @@
 											<th>Actions</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>#TRX001</td>
-											<td>Sarah Johnson</td>
-											<td>The Great Gatsby</td>
-											<td>Borrow</td>
-											<td>Nov 1, 2025</td>
-											<td>Dec 1, 2025</td>
-											<td><span class="badge bg-success">Active</span></td>
-											<td>
-												<button class="btn btn-sm btn-outline-primary">Details</button>
-											</td>
-										</tr>
-										<tr>
-											<td>#TRX002</td>
-											<td>John Smith</td>
-											<td>1984</td>
-											<td>Return</td>
-											<td>Nov 1, 2025</td>
-											<td>-</td>
-											<td><span class="badge bg-info">Returned</span></td>
-											<td>
-												<button class="btn btn-sm btn-outline-primary">Details</button>
-											</td>
-										</tr>
+									<tbody id="transactions-tbody">
+										<!-- transactions will be injected here by ../js/db-client.js -->
 									</tbody>
 								</table>
 							</div>
@@ -209,23 +186,8 @@
 							<h5>Books Due Today</h5>
 						</div>
 						<div class="card-body">
-							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action">
-									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-1">The Catcher in the Rye</h6>
-										<small class="text-danger">Due Today</small>
-									</div>
-									<p class="mb-1">Borrowed by: Mike Wilson</p>
-									<small>Member ID: M0123</small>
-								</a>
-								<a href="#" class="list-group-item list-group-item-action">
-									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-1">To Kill a Mockingbird</h6>
-										<small class="text-danger">Due Today</small>
-									</div>
-									<p class="mb-1">Borrowed by: Emily Brown</p>
-									<small>Member ID: M0124</small>
-								</a>
+							<div class="list-group" id="due-books-list">
+								<!-- due books injected by ../js/db-client.js -->
 							</div>
 						</div>
 					</div>
@@ -236,21 +198,8 @@
 							<h5>Recent Member Activities</h5>
 						</div>
 						<div class="card-body">
-							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action">
-									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-1">New Member Registration</h6>
-										<small>2 hours ago</small>
-									</div>
-									<p class="mb-1">David Thompson registered as a new member</p>
-								</a>
-								<a href="#" class="list-group-item list-group-item-action">
-									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-1">Fine Payment</h6>
-										<small>4 hours ago</small>
-									</div>
-									<p class="mb-1">Alice Johnson paid $5.00 in late fees</p>
-								</a>
+							<div class="list-group" id="member-activities-list">
+								<!-- member activities injected by ../js/db-client.js -->
 							</div>
 						</div>
 					</div>
@@ -323,6 +272,7 @@
 	<script src="../js/plugins.js"></script>
 	<script src="../js/slideNav.min.js"></script>
 	<script src="../js/script.js"></script>
+	<script src="../js/db-client.js"></script>
 </body>
 
 </html>
