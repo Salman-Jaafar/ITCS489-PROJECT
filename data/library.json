@@ -1,4 +1,64 @@
 {
+  "books": [
+    {
+      "id": 1,
+      "title": "Simple way of peace life",
+      "author": "Armor Ramsey",
+      "isbn": "978-3-16-148410-0",
+      "category": "Fiction",
+      "quantity": 12,
+      "price": 15.99,
+      "shelf_location": "A-12",
+      "description": "A guide to finding inner peace"
+    },
+    {
+      "id": 2,
+      "title": "Great travel at desert",
+      "author": "Sanchit Howdy",
+      "isbn": "978-1-40-289462-6",
+      "category": "Travel",
+      "quantity": 2,
+      "price": 18.50,
+      "shelf_location": "B-5",
+      "description": "An adventure across the Sahara"
+    },
+    {
+      "id": 3,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "isbn": "978-0-7432-7356-5",
+      "category": "Fiction",
+      "quantity": 8,
+      "price": 12.99,
+      "shelf_location": "A-1",
+      "description": "Classic American novel"
+    },
+    {
+      "id": 4,
+      "title": "1984",
+      "author": "George Orwell",
+      "isbn": "978-0-451-52493-2",
+      "category": "Fiction",
+      "quantity": 5,
+      "price": 14.99,
+      "shelf_location": "A-8",
+      "description": "Dystopian novel about totalitarianism"
+    }
+  ],
+  "fines": [
+    {
+      "id": 1,
+      "reason": "Late return - Book A",
+      "amount": 2.50,
+      "date": "2025-04-10"
+    },
+    {
+      "id": 2,
+      "reason": "Damaged - Book B",
+      "amount": 5.00,
+      "date": "2025-03-02"
+    }
+  ],
   "stats": {
     "totalBooks": 1234,
     "activeMembers": 450,

@@ -64,36 +64,14 @@
                                             <th>Title</th>
                                             <th>Author</th>
                                             <th>ISBN</th>
+                                            <th>Category</th>
                                             <th>Status</th>
-                                            <th>Stock</th>
+                                            <th>Shelf</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><img src="../images/product-item1.jpg" alt="book" style="width: 40px;"></td>
-                                            <td>Simple way of peace life</td>
-                                            <td>Armor Ramsey</td>
-                                            <td>978-3-16-148410-0</td>
-                                            <td><span class="badge bg-success">Active</span></td>
-                                            <td>12</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="../images/product-item2.jpg" alt="book" style="width: 40px;"></td>
-                                            <td>Great travel at desert</td>
-                                            <td>Sanchit Howdy</td>
-                                            <td>978-1-40-289462-6</td>
-                                            <td><span class="badge bg-warning">Low Stock</span></td>
-                                            <td>2</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
+                                        <!-- Records loaded dynamically -->
                                     </tbody>
                                 </table>
                             </div>
@@ -121,63 +99,248 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    
+                    <div id="alertBox"></div>
                     <form id="addBookForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Book Title</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" name="title" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Author</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" name="author" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">ISBN</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" name="isbn" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Category</label>
-                                <select class="form-select">
-                                    <option>Fiction</option>
-                                    <option>Technology</option>
-                                    <option>Science</option>
+                                <select class="form-select" name="category">
+                                    <option value="Fiction">Fiction</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Science">Science</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Stock Quantity</label>
-                                <input type="number" class="form-control" min="1" value="1">
+                                <input type="number" class="form-control" name="quantity" min="1" value="1">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Shelf Location</label>
-                                <input type="text" class="form-control" placeholder="e.g. A-12">
+                                <input type="text" class="form-control" name="shelf_location" placeholder="e.g. A-12">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Price (for fines)</label>
-                                <input type="number" class="form-control" step="0.01">
+                                <label class="form-label">Price</label>
+                                <input type="number" class="form-control" name="price" step="0.01">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Save Book</button>
+                    <button type="submit" form="addBookForm" class="btn btn-primary">Save Book</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade" id="viewBookModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Book Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="../images/product-item1.jpg" class="img-fluid rounded" alt="book cover">
+                        </div>
+                        <div class="col-md-8">
+                            <dl class="row">
+                                <dt class="col-sm-4">Title:</dt>
+                                <dd class="col-sm-8"><strong id="viewTitle">—</strong></dd>
+                                
+                                <dt class="col-sm-4">Author:</dt>
+                                <dd class="col-sm-8"><strong id="viewAuthor">—</strong></dd>
+                                
+                                <dt class="col-sm-4">ISBN:</dt>
+                                <dd class="col-sm-8"><code id="viewISBN">—</code></dd>
+                                
+                                <dt class="col-sm-4">Category:</dt>
+                                <dd class="col-sm-8"><span class="badge bg-info" id="viewCategory">—</span></dd>
+                                
+                                <dt class="col-sm-4">Stock:</dt>
+                                <dd class="col-sm-8" id="viewQuantity">—</dd>
+                                
+                                <dt class="col-sm-4">Shelf Location:</dt>
+                                <dd class="col-sm-8" id="viewLocation">—</dd>
+                                
+                                <dt class="col-sm-4">Price:</dt>
+                                <dd class="col-sm-8" id="viewPrice">—</dd>
+                                
+                                <dt class="col-sm-4">Description:</dt>
+                                <dd class="col-sm-8" id="viewDescription">—</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../js/jquery-1.11.0.min.js"></script>
     <script src="../js/plugins.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/api-config.js"></script>
+    <script>
+        $(function () {
+            function loadBooks() {
+                fetch('http://localhost:3000/api/books.php')
+                    .then(res => res.json())
+                    .catch(() => {
+                        console.log('API failed, trying fallback...');
+                        return fetch('http://localhost:5500/data/library.json').then(res => res.json());
+                    })
+                    .then(data => {
+                        const tbody = $('tbody');
+                        tbody.empty();
+                        const books = Array.isArray(data) ? data : (data.books || []);
+                        if (!books || books.length === 0) {
+                            tbody.append('<tr><td colspan="8" class="text-center text-muted">No books found</td></tr>');
+                            return;
+                        }
+                        books.forEach(book => {
+                            const isbn = book.isbn || book.ISBN || '';
+                            const status = book.status || book.Status || 'Available';
+                            const statusClass = status.toLowerCase().includes('available') ? 'bg-success' : (status.toLowerCase().includes('borrow') ? 'bg-warning' : 'bg-secondary');
+                            tbody.append(`
+                                <tr>
+                                    <td><img src="../images/product-item1.jpg" alt="book" style="width: 40px;"></td>
+                                    <td>${book.title || book.Title || ''}</td>
+                                    <td>${book.author || book.Author || ''}</td>
+                                    <td><code>${isbn || '—'}</code></td>
+                                    <td>${book.category || book.Genre || '—'}</td>
+                                    <td><span class="badge ${statusClass}">${status}</span></td>
+                                    <td>${book.shelf_location || book.ShelfLocation || '—'}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-info view-btn" data-isbn="${isbn}" title="View Details"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger delete-btn" data-isbn="${isbn}" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    })
+                    .catch(err => {
+                        console.error('Error loading books:', err);
+                        $('tbody').html('<tr><td colspan="8" class="text-center text-danger">Error loading books</td></tr>');
+                    });
+            }
+
+            loadBooks();
+
+            $('#addBookForm').on('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                fetch('http://localhost:3000/api/books.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(result => {
+                    const alertBox = $('#alertBox');
+                    if (result.success) {
+                        alertBox.html('<div class="alert alert-success">Book added successfully!</div>');
+                        document.getElementById('addBookForm').reset();
+                        setTimeout(() => {
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('addBookModal'));
+                            modal.hide();
+                            loadBooks();
+                        }, 1000);
+                    } else {
+                        alertBox.html('<div class="alert alert-danger">' + (result.message || 'Error adding book') + '</div>');
+                    }
+                })
+                .catch(err => {
+                    $('#alertBox').html('<div class="alert alert-danger">Error: ' + err.message + '</div>');
+                });
+            });
+
+            $(document).on('click', '.delete-btn', function () {
+                const isbn = $(this).data('isbn');
+                if (confirm('Delete this book?')) {
+                    fetch('http://localhost:3000/api/books.php', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ isbn: isbn })
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.success) {
+                            loadBooks();
+                        } else {
+                            alert('Error: ' + (result.message || 'Delete failed'));
+                        }
+                    })
+                    .catch(err => {
+                        alert('Error deleting book: ' + err.message);
+                    });
+                }
+            });
+
+            $(document).on('click', '.view-btn', function () {
+                const isbn = $(this).data('isbn');
+                
+                // Fetch the single book by ISBN
+                fetch('http://localhost:3000/api/books.php?isbn=' + encodeURIComponent(isbn))
+                    .then(res => res.ok ? res.json() : Promise.reject('Not found'))
+                    .catch(() => {
+                        // Fallback: get all books and find by ISBN
+                        return fetch('http://localhost:3000/api/books.php')
+                            .then(res => res.json())
+                            .catch(() => fetch('http://localhost:5500/data/library.json').then(res => res.json()))
+                            .then(data => {
+                                const books = Array.isArray(data) ? data : (data.books || []);
+                                return books.find(b => (b.isbn || b.ISBN || '') === isbn);
+                            });
+                    })
+                    .then(book => {
+                        if (book) {
+                            $('#viewTitle').text(book.title || book.Title || '—');
+                            $('#viewAuthor').text(book.author || book.Author || '—');
+                            $('#viewISBN').text(book.isbn || book.ISBN || '—');
+                            $('#viewCategory').text(book.category || book.Genre || '—');
+                            $('#viewQuantity').text(book.quantity || 'N/A');
+                            $('#viewLocation').text(book.shelf_location || book.ShelfLocation || '—');
+                            $('#viewPrice').text(book.price ? '$' + parseFloat(book.price).toFixed(2) : 'N/A');
+                            $('#viewDescription').text(book.description || book.Description || 'No description available');
+                            
+                            const modal = new bootstrap.Modal(document.getElementById('viewBookModal'));
+                            modal.show();
+                        } else {
+                            alert('Book not found');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error loading book:', err);
+                        alert('Error loading book details');
+                    });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -61,6 +61,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
+            // Load fines from API or fallback
+            function loadFines() {
+                fetch('/api/fines.php')
+                    .then(res => res.json())
+                    .catch(() => fetch('../data/library.json').then(res => res.json()))
+                    .then(data => {
+                        const tbody = $('tbody');
+                        tbody.empty();
+                        const fines = Array.isArray(data) ? data : (data.fines || []);
+                        fines.forEach(fine => {
+                            const amount = parseFloat(fine.amount || 0);
+                            tbody.append(`
+                                <tr>
+                                    <td><input type="checkbox" class="fine-checkbox" data-amount="${amount}" data-id="${fine.id}"></td>
+                                    <td>${fine.reason || ''}</td>
+                                    <td>$${amount.toFixed(2)}</td>
+                                    <td>${fine.date || ''}</td>
+                                </tr>
+                            `);
+                        });
+                    });
+            }
+
             function updateTotal() {
                 let total = 0;
                 $('.fine-checkbox:checked').each(function () {
@@ -69,16 +92,35 @@
                 $('#totalAmount').text('$' + total.toFixed(2));
             }
 
+            loadFines();
             $('.fine-checkbox').on('change', updateTotal);
 
             $('#payBtn').on('click', function () {
                 const selected = $('.fine-checkbox:checked');
                 if (!selected.length) return alert('Please select at least one fine to pay.');
 
-                // Simulate payment flow - replace with API call
-                alert('Payment processed for ' + selected.length + ' fine(s).');
-                selected.closest('tr').remove();
-                updateTotal();
+                const fineIds = [];
+                selected.each(function () {
+                    fineIds.push($(this).data('id'));
+                });
+
+                // POST to payment API
+                fetch('/api/fines.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fine_ids: fineIds, action: 'pay' })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        alert('Payment processed for ' + fineIds.length + ' fine(s).');
+                        selected.closest('tr').remove();
+                        updateTotal();
+                    } else {
+                        alert('Payment failed: ' + (result.message || 'Unknown error'));
+                    }
+                })
+                .catch(err => alert('Error: ' + err.message));
             });
 
             updateTotal();

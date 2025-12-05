@@ -6,172 +6,215 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="../images/product-item1.jpg" class="img-fluid" alt="book cover">
-            </div>
-            <div class="col-md-8">
-                <h2>Simple way of peace life</h2>
-                <p class="text-muted">by Armor Ramsey</p>
-                <p><strong>ISBN:</strong> 978-3-16-148410-0</p>
-                <p><strong>Category:</strong> Fiction</p>
-                <p><strong>Availability:</strong> In Stock</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LMS - Book Details</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="../icomoon/icomoon.css">
+        <link rel="stylesheet" type="text/css" href="../css/vendor.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
+    </head>
 
-                <div class="mt-4">
-                    <a href="books.html" class="btn btn-outline-secondary">Back to list</a>
-                    <button class="btn btn-primary">Reserve</button>
+    <body>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-5">
+                    <figure class="products-thumb">
+                        <img id="book-cover" src="../images/single-image.jpg" alt="book" class="img-fluid single-image">
+                    </figure>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</body>
+                <div class="col-md-7">
+                    <h2 id="book-title">Loading...</h2>
+                    <div class="author-name text-muted" id="book-author"></div>
 
-</html>
-<!DOCTYPE html>
-<html lang="en">
+                    <div class="mb-3 mt-3">
+                        <span id="book-availability" class="badge bg-secondary">Loading</span>
+                        <span class="text-muted ms-2">ISBN: <span id="book-isbn">—</span></span>
+                        <span class="text-muted ms-2">Shelf: <span id="book-shelf">—</span></span>
+                    </div>
 
-<head>
-    <title>LMS - Book Details</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <p id="book-description">Please wait while we fetch book details.</p>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="../icomoon/icomoon.css">
-    <link rel="stylesheet" type="text/css" href="../css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
-</head>
+                    <dl class="row mt-4">
+                        <dt class="col-sm-3">Publisher</dt>
+                        <dd class="col-sm-9" id="book-publisher">—</dd>
+                        <dt class="col-sm-3">Year</dt>
+                        <dd class="col-sm-9" id="book-year">—</dd>
+                        <dt class="col-sm-3">Pages</dt>
+                        <dd class="col-sm-9" id="book-pages">—</dd>
+                    </dl>
 
-<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
-
-    <div id="header-wrap">
-        <div class="top-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="right-element text-end">
-                            <div class="dropdown">
-                                <a href="#" class="user-account" data-bs-toggle="dropdown">
-                                    <i class="icon icon-user"></i> John Doe <i class="icon icon-chevron-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="user-dashboard.html">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="login.html">Logout</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="btn-wrap mt-4">
+                        <a href="books.html" class="btn btn-outline-secondary">Back to list</a>
+                        <button id="borrow-btn" class="btn btn-primary ms-2">Borrow Now</button>
                     </div>
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="user-dashboard.html"><img src="../images/main-logo.png" alt="logo"></a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="user-dashboard.html">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="books.html">Browse Books</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
 
-    <section id="best-selling" class="leaf-pattern-overlay">
-        <div class="corner-pattern-overlay"></div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-5" data-aos="fade-right">
-                            <figure class="products-thumb">
-                                <img src="../images/single-image.jpg" alt="book" class="single-image">
-                            </figure>
-                        </div>
-
-                        <div class="col-md-7" data-aos="fade-left">
-                            <div class="product-entry">
-                                <h2 class="section-title divider">Book Details</h2>
-
-                                <div class="products-content">
-                                    <div class="author-name">By Timbur Hood</div>
-                                    <h3 class="item-title">Birds gonna be happy</h3>
-                                    
-                                    <div class="mb-4">
-                                        <span class="badge bg-success fs-6">Available</span>
-                                        <span class="text-muted ms-2">ISBN: 978-3-16-148410-0</span>
-                                        <span class="text-muted ms-2">Shelf: A-14</span>
-                                    </div>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
-                                        libero ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend.
-                                        Amet, quis urna, a eu. This book covers the essential dynamics of happiness.</p>
-                                    
-                                    <dl class="row mt-4">
-                                        <dt class="col-sm-3">Publisher</dt>
-                                        <dd class="col-sm-9">Penguin Books</dd>
-                                        <dt class="col-sm-3">Year</dt>
-                                        <dd class="col-sm-9">2023</dd>
-                                        <dt class="col-sm-3">Pages</dt>
-                                        <dd class="col-sm-9">340</dd>
-                                    </dl>
-
-                                    <div class="btn-wrap mt-4">
-                                        <button class="btn btn-primary btn-large me-3" onclick="confirmBorrow()">
-                                            <i class="icon icon-book"></i> Borrow Now
-                                        </button>
-                                        <button class="btn btn-outline-dark btn-large">
-                                            <i class="icon icon-heart"></i> Add to Wishlist
-                                        </button>
-                                    </div>
-                                    <p class="mt-3 text-muted small"><i class="icon icon-info-circle"></i> This book will be due 30 days from today.</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="modal fade" id="borrowModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Success</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="icon icon-check-circle text-success fs-1 mb-3"></i>
+                        <p>Book borrowed successfully!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="user-dashboard.html" class="btn btn-primary">Go to Dashboard</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <div class="modal fade" id="borrowModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Success</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <i class="icon icon-check-circle text-success fs-1 mb-3"></i>
-                    <p>Book borrowed successfully!</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="user-dashboard.html" class="btn btn-primary">Go to Dashboard</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../js/jquery-1.11.0.min.js"></script>
+        <script src="../js/plugins.js"></script>
+        <script src="../js/script.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/plugins.js"></script>
-    <script src="../js/script.js"></script>
-    <script>
-        function confirmBorrow() {
-            // In a real app, this would be an API call
-            const modal = new bootstrap.Modal(document.getElementById('borrowModal'));
-            modal.show();
-        }
-    </script>
-</body>
-</html>
+        <script>
+            function getQueryParam(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name);
+            }
+
+            function setText(id, value) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value ?? '—';
+            }
+
+            function setBadgeAvailability(elId, status) {
+                const el = document.getElementById(elId);
+                if (!el) return;
+                el.className = '';
+                if (!status) {
+                    el.classList.add('badge', 'bg-secondary');
+                    el.textContent = 'Unknown';
+                    return;
+                }
+                const lower = String(status).toLowerCase();
+                if (lower.includes('available') || lower === 'available' || lower === 'in stock') {
+                    el.classList.add('badge', 'bg-success');
+                    el.textContent = 'Available';
+                } else if (lower.includes('borrow') || lower.includes('loan') || lower === 'checked out' || lower === 'unavailable') {
+                    el.classList.add('badge', 'bg-warning');
+                    el.textContent = 'Checked out';
+                } else {
+                    el.classList.add('badge', 'bg-secondary');
+                    el.textContent = status;
+                }
+            }
+
+        async function fetchBookByISBN(isbnParam) {
+            if (!isbnParam) throw new Error('No ISBN provided');
+            const lookup = String(isbnParam);
+
+            // 1) Try single-book API by isbn param
+            try {
+                const res = await fetch('http://localhost:3000/api/books.php?isbn=' + encodeURIComponent(lookup));
+                if (res.ok) {
+                    const data = await res.json();
+                    // API returns the book object directly (with isbn field)
+                    if (data && (data.isbn || data.ISBN || data.title)) return data;
+                }
+                // if 404 or not found, continue to list approach
+            } catch (e) {
+                console.warn('Single-book API fetch failed, will try list lookup:', e.message);
+            }
+
+            // 2) Try list API and match by isbn or id
+            try {
+                const res2 = await fetch('http://localhost:3000/api/books.php');
+                if (res2.ok) {
+                    const listData = await res2.json();
+                    const books = Array.isArray(listData) ? listData : (listData.books || []);
+                    // try matching by isbn fields or numeric id
+                    const found = books.find(b => {
+                        const bIsbn = String(b.isbn || b.ISBN || '');
+                        const bId = b.id != null ? String(b.id) : (b.ID != null ? String(b.ID) : null);
+                        return (bIsbn && bIsbn === lookup) || (bId && bId === lookup);
+                    });
+                    if (found) return found;
+                }
+            } catch (e) {
+                console.warn('List API fetch failed, trying static fallback:', e.message);
+            }
+
+            // 3) Static fallback JSON
+            try {
+                const fallback = await fetch('http://localhost:5500/data/library.json');
+                if (!fallback.ok) throw new Error('Fallback failed');
+                const json = await fallback.json();
+                if (Array.isArray(json.books)) {
+                    const found = json.books.find(b => {
+                        const bIsbn = String(b.isbn || b.ISBN || '');
+                        const bId = b.id != null ? String(b.id) : null;
+                        return (bIsbn && bIsbn === lookup) || (bId && bId === lookup);
+                    });
+                    if (found) return found;
+                }
+                return null;
+            } catch (e) {
+                console.error('Fallback fetch also failed', e);
+                return null;
+            }
+        }            async function loadDetails() {
+                const isbn = getQueryParam('isbn') || getQueryParam('id');
+                if (!isbn) {
+                    setText('book-title', 'No book specified');
+                    setText('book-description', 'Please go back to the book list and select an item.');
+                    return;
+                }
+
+                try {
+                    const book = await fetchBookByISBN(isbn);
+                    if (!book) {
+                        setText('book-title', 'Book not found');
+                        setText('book-description', 'No details available for ISBN ' + isbn);
+                        return;
+                    }
+
+                    // populate fields
+                    setText('book-title', book.title || book.Title || 'Untitled');
+                    setText('book-author', book.author || book.Author || book.authors || 'Unknown');
+                    setText('book-isbn', book.isbn || book.ISBN || isbn);
+                    setText('book-shelf', book.shelf || book.ShelfLocation || book.location || '—');
+                    setText('book-description', book.description || book.Description || 'No description available.');
+                    setText('book-publisher', book.publisher || book.Publisher || '—');
+                    setText('book-year', book.year || book.Year || book.publication_year || '—');
+                    setText('book-pages', book.pages || book.Pages || '—');
+                    setBadgeAvailability('book-availability', book.status || book.Status || (book.available ? 'Available' : 'Checked out'));
+
+                    // cover image
+                    const cover = book.cover || book.image || book.cover_url;
+                    if (cover) document.getElementById('book-cover').src = cover;
+
+                    // Borrow button - simple demo: show modal, in real app call /api/loans.php
+                    document.getElementById('borrow-btn').addEventListener('click', () => {
+                        const modal = new bootstrap.Modal(document.getElementById('borrowModal'));
+                        modal.show();
+                    });
+
+                } catch (err) {
+                    console.error('Failed to load book details', err);
+                    setText('book-title', 'Error loading book');
+                    setText('book-description', err.message || 'Unknown error');
+                }
+            }
+
+            // initialize
+            document.addEventListener('DOMContentLoaded', loadDetails);
+        </script>
+    </body>
+
+    </html>
