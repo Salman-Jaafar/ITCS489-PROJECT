@@ -95,7 +95,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-book"></i> Books Borrowed</h5>
-							<h2 class="card-text">3</h2>
+							<h2 class="card-text" id="user-books-borrowed">—</h2>
 							<p class="text-muted">Out of 5 allowed</p>
 						</div>
 					</div>
@@ -104,7 +104,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-history"></i> Due Soon</h5>
-							<h2 class="card-text">1</h2>
+							<h2 class="card-text" id="user-due-soon">—</h2>
 							<p class="text-muted">Due in 3 days</p>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-bookmark"></i> Reserved</h5>
-							<h2 class="card-text">2</h2>
+							<h2 class="card-text" id="user-reserved">—</h2>
 							<p class="text-muted">In waiting list</p>
 						</div>
 					</div>
@@ -122,7 +122,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-coin-dollar"></i> Fines</h5>
-							<h2 class="card-text">$0.00</h2>
+							<h2 class="card-text" id="user-fines">—</h2>
 							<p class="text-muted">No pending fines</p>
 						</div>
 					</div>
@@ -288,6 +288,38 @@
 	<script src="../js/plugins.js"></script>
 	<script src="../js/slideNav.min.js"></script>
 	<script src="../js/script.js"></script>
+	<script>
+	// Example: fetch user summary (static mode will use library.json). Replace 1 with actual logged-in user id when integrating.
+	const userId = 1; // change as needed for static preview
+
+	function populateUserFromData(data) {
+	  try {
+	    // In our sample JSON we don't have per-user totals, so map some demo values if present
+	    if (data.userSummary && data.userSummary[userId]) {
+	      const u = data.userSummary[userId];
+	      document.getElementById('user-books-borrowed').textContent = u.booksBorrowed ?? '—';
+	      document.getElementById('user-due-soon').textContent = u.dueSoon ?? '—';
+	      document.getElementById('user-reserved').textContent = u.reserved ?? '—';
+	      document.getElementById('user-fines').textContent = '$' + Number(u.pendingFines || 0).toLocaleString();
+	      return;
+	    }
+	    // Fallback: use aggregated data approximations
+	    if (data.stats) {
+	      document.getElementById('user-books-borrowed').textContent = Math.min(3, Math.floor((data.stats.totalBooks || 0) / 400)) || '—';
+	      document.getElementById('user-due-soon').textContent = data.stats.dueToday ?? '—';
+	      document.getElementById('user-reserved').textContent = 0;
+	      document.getElementById('user-fines').textContent = '$' + Number(data.stats.pendingFines || 0).toLocaleString();
+	    }
+	  } catch (e) { console.error(e); }
+	}
+
+	if (window.lmsData) {
+	  populateUserFromData(window.lmsData);
+	} else {
+	  document.addEventListener('lms-data-ready', function (e) { populateUserFromData(e.detail); });
+	  fetch('../data/library.json').then(r => r.json()).then(populateUserFromData).catch(()=>{});
+	}
+	</script>
 </body>
 
 </html>

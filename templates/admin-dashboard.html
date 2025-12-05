@@ -96,7 +96,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-users"></i> Total Librarians</h5>
-							<h2 class="card-text">15</h2>
+							<h2 class="card-text" id="total-librarians">—</h2>
 							<p class="text-muted">2 new this month</p>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-books"></i> Total Books</h5>
-							<h2 class="card-text">1,234</h2>
+							<h2 class="card-text" id="admin-total-books">—</h2>
 							<p class="text-muted">50 added this month</p>
 						</div>
 					</div>
@@ -114,7 +114,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-user"></i> Total Members</h5>
-							<h2 class="card-text">450</h2>
+							<h2 class="card-text" id="admin-total-members">—</h2>
 							<p class="text-muted">15 new this month</p>
 						</div>
 					</div>
@@ -123,7 +123,7 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title"><i class="icon icon-coin-dollar"></i> Total Revenue</h5>
-							<h2 class="card-text">$2,500</h2>
+							<h2 class="card-text" id="admin-total-revenue">—</h2>
 							<p class="text-muted">From fines and fees</p>
 						</div>
 					</div>
@@ -292,6 +292,31 @@
 	<script src="../js/plugins.js"></script>
 	<script src="../js/slideNav.min.js"></script>
 	<script src="../js/script.js"></script>
+	<script>
+	function populateAdminFromData(data) {
+	  try {
+	    if (data.totalLibrarians !== undefined) document.getElementById('total-librarians').textContent = data.totalLibrarians;
+	  } catch (e) {}
+	  try {
+	    if (data.totalRevenue !== undefined) document.getElementById('admin-total-revenue').textContent = '$' + Number(data.totalRevenue).toLocaleString();
+	  } catch (e) {}
+	  try {
+	    if (data.stats) {
+	      document.getElementById('admin-total-books').textContent = data.stats.totalBooks ?? '—';
+	      document.getElementById('admin-total-members').textContent = data.stats.activeMembers ?? '—';
+	    }
+	  } catch (e) {}
+	}
+
+	// If API is available it will be used by db-client; but in static-only mode listen for the lms-data-ready event
+	if (window.lmsData) {
+	  populateAdminFromData(window.lmsData);
+	} else {
+	  document.addEventListener('lms-data-ready', function (e) { populateAdminFromData(e.detail); });
+	  // as a fallback try to fetch the local JSON directly
+	  fetch('../data/library.json').then(r => r.json()).then(populateAdminFromData).catch(()=>{});
+	}
+	</script>
 </body>
 
 </html>
