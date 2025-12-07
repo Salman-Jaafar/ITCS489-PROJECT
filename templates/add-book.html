@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>LMS - Add New Book</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/lms-custom.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+    <div id="header-wrap">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="admin-dashboard.html">
+                    <img src="../images/main-logo.png" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="manage-books.html">Books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <section class="padding-large">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-12" data-aos="fade-down">
+                    <div class="section-header">
+                        <h2 class="section-title">Add New Book</h2>
+                        <p class="text-muted">Fill in the details to add a new book to the inventory</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center" data-aos="fade-up">
+                <div class="col-md-10">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-5">
+                            <div id="alertBox"></div>
+
+                            <form id="addBookForm" enctype="multipart/form-data">
+                                <div class="row">
+                                    <!-- Book Cover Preview -->
+                                    <div class="col-md-4 mb-4">
+                                        <div class="text-center">
+                                            <label class="form-label fw-bold">Book Cover</label>
+                                            <div class="border rounded p-3 mb-3" style="min-height: 300px; background-color: #f8f9fa;">
+                                                <img id="coverPreview" src="../images/product-item1.jpg" class="img-fluid rounded" alt="Book cover preview" style="max-height: 280px; object-fit: cover;">
+                                            </div>
+                                            <div class="d-grid">
+                                                <label for="coverImage" class="btn btn-outline-primary">
+                                                    <i class="fas fa-upload me-2"></i>Upload Cover
+                                                </label>
+                                                <input type="file" class="d-none" id="coverImage" name="cover_image" accept="image/*">
+                                            </div>
+                                            <small class="text-muted d-block mt-2">Recommended: 400x600px, JPG/PNG</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Book Details -->
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label class="form-label fw-bold">Book Title <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="title" placeholder="Enter book title" required>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Author <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="author" placeholder="Author name" required>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">ISBN <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="isbn" placeholder="978-3-16-148410-0" required>
+                                                <small class="text-muted">13-digit ISBN number</small>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Genre/Category</label>
+                                                <select class="form-select" name="category">
+                                                    <option value="">Select category</option>
+                                                    <option value="Fiction">Fiction</option>
+                                                    <option value="Non-Fiction">Non-Fiction</option>
+                                                    <option value="Technology">Technology</option>
+                                                    <option value="Science">Science</option>
+                                                    <option value="History">History</option>
+                                                    <option value="Biography">Biography</option>
+                                                    <option value="Mystery">Mystery</option>
+                                                    <option value="Romance">Romance</option>
+                                                    <option value="Fantasy">Fantasy</option>
+                                                    <option value="Self-Help">Self-Help</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Publication Year</label>
+                                                <input type="number" class="form-control" name="year" placeholder="2024" min="1000" max="2100">
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Publisher</label>
+                                                <input type="text" class="form-control" name="publisher" placeholder="Publisher name">
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Pages</label>
+                                                <input type="number" class="form-control" name="pages" placeholder="350" min="1">
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Status</label>
+                                                <select class="form-select" name="status">
+                                                    <option value="Available">Available</option>
+                                                    <option value="Borrowed">Borrowed</option>
+                                                    <option value="Reserved">Reserved</option>
+                                                    <option value="Lost">Lost</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Shelf Location</label>
+                                                <input type="text" class="form-control" name="shelf_location" placeholder="e.g., A-12">
+                                                <small class="text-muted">Physical location in library</small>
+                                            </div>
+
+                                            <div class="col-md-12 mb-3">
+                                                <label class="form-label fw-bold">Description</label>
+                                                <textarea class="form-control" name="description" rows="4" placeholder="Brief description of the book..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="d-flex justify-content-between">
+                                            <a href="manage-books.html" class="btn btn-outline-secondary">
+                                                <i class="fas fa-arrow-left me-2"></i>Back to Inventory
+                                            </a>
+                                            <div>
+                                                <button type="reset" class="btn btn-outline-warning me-2">
+                                                    <i class="fas fa-redo me-2"></i>Reset Form
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-2"></i>Add Book
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>© 2025 Library Management System. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/plugins.js"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        $(function () {
+            // API URL - relative path to books endpoint
+            const API_URL = '/api/books.php';
+
+            // Image preview handler with auto-resize
+            $('#coverImage').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Check if it's an image
+                    if (!file.type.startsWith('image/')) {
+                        alert('Please select an image file');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create image to resize
+                        const img = new Image();
+                        img.onload = function() {
+                            // Create canvas for resizing
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Target dimensions (maintain aspect ratio, max 400x600)
+                            const maxWidth = 400;
+                            const maxHeight = 600;
+                            let width = img.width;
+                            let height = img.height;
+                            
+                            // Calculate new dimensions
+                            if (width > height) {
+                                if (width > maxWidth) {
+                                    height *= maxWidth / width;
+                                    width = maxWidth;
+                                }
+                            } else {
+                                if (height > maxHeight) {
+                                    width *= maxHeight / height;
+                                    height = maxHeight;
+                                }
+                            }
+                            
+                            canvas.width = width;
+                            canvas.height = height;
+                            
+                            // Draw resized image
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // Update preview with object-fit contain
+                            const resizedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                            $('#coverPreview').attr('src', resizedDataUrl).css({
+                                'object-fit': 'contain',
+                                'max-height': '280px',
+                                'width': 'auto'
+                            });
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form submission handler
+            $('#addBookForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                // Use FormData to include file upload
+                const formData = new FormData(this);
+
+                // Show loading state
+                const submitBtn = $(this).find('button[type="submit"]');
+                const originalText = submitBtn.html();
+                submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Adding...');
+
+                console.log('Sending form with file upload to:', API_URL);
+
+                // Send to API with multipart/form-data (no Content-Type header - browser sets it with boundary)
+                fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => {
+                    console.log('Response status:', res.status, res.statusText);
+                    // Check if response is ok
+                    if (!res.ok) {
+                        return res.text().then(text => {
+                            console.error('Error response:', text);
+                            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                        });
+                    }
+                    // Check content type
+                    const contentType = res.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        return res.text().then(text => {
+                            console.error('Non-JSON response:', text);
+                            throw new Error('Server returned non-JSON response');
+                        });
+                    }
+                    return res.json();
+                })
+                .then(result => {
+                    const alertBox = $('#alertBox');
+                    if (result.success) {
+                        const bookTitle = result.title || 'Book';
+                        alertBox.html(`
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Success!</strong> Book "${bookTitle}" has been added to the inventory.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        `);
+                        
+                        // Reset form and preview
+                        document.getElementById('addBookForm').reset();
+                        $('#coverPreview').attr('src', '../images/product-item1.jpg');
+                        
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'manage-books.html';
+                        }, 2000);
+                    } else {
+                        alertBox.html(`
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Error!</strong> ${result.message || 'Failed to add book. Please try again.'}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        `);
+                    }
+                    
+                    // Restore button
+                    submitBtn.prop('disabled', false).html(originalText);
+                    
+                    // Scroll to alert
+                    $('html, body').animate({ scrollTop: $('#alertBox').offset().top - 100 }, 500);
+                })
+                .catch(err => {
+                    const alertBox = $('#alertBox');
+                    alertBox.html(`
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <strong>Connection Error!</strong> ${err.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    `);
+                    submitBtn.prop('disabled', false).html(originalText);
+                    $('html, body').animate({ scrollTop: $('#alertBox').offset().top - 100 }, 500);
+                });
+            });
+
+            // Reset button handler
+            $('#addBookForm').on('reset', function () {
+                setTimeout(() => {
+                    $('#coverPreview').attr('src', '../images/product-item1.jpg');
+                    $('#alertBox').empty();
+                }, 10);
+            });
+        });
+    </script>
+</body>
+</html>

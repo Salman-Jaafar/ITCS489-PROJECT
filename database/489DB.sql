@@ -3,23 +3,35 @@ USE LibraryDB;
 
 CREATE TABLE User (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) UNIQUE,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
     Phone VARCHAR(20),
-    Street VARCHAR(100),
-    City VARCHAR(50),
-    Zip VARCHAR(10),
+    Address VARCHAR(100),
+    Password VARCHAR(255) NOT NULL,
+    IsStaff BOOLEAN DEFAULT 0,
+    UserType ENUM('User','Doctor') DEFAULT 'User',
+    MaxBooks INT DEFAULT 3,
+    ProfilePhoto VARCHAR(255),
     AccountStatus VARCHAR(20) DEFAULT 'Active',
-    MembershipDate DATE
+    MembershipDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Employee (
     EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) UNIQUE,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(20),
+    Address VARCHAR(100),
+    Password VARCHAR(255) NOT NULL,
     Position VARCHAR(50),
     AccessLevel INT DEFAULT 1,
-    Role ENUM('Librarian','Administrator','Other') DEFAULT 'Librarian'
+    Role ENUM('Librarian','Administrator','Other') DEFAULT 'Librarian',
+    MaxBooks INT DEFAULT 0,
+    ProfilePhoto VARCHAR(255),
+    AccountStatus VARCHAR(20) DEFAULT 'Active',
+    JoinDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Book (

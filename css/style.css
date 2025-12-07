@@ -2375,6 +2375,8 @@ footer#footer {
   padding: 15%;
   cursor: pointer;
   width: 100%;
+  height: 350px;
+  object-fit: contain;
 }
 
 .product-style button.add-to-cart {

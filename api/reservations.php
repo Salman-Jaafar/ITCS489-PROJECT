@@ -17,27 +17,63 @@ $input = json_decode(file_get_contents('php://input'), true) ?? [];
 
 try {
     if ($method === 'GET') {
-        // Get all reservations with details
-        $stmt = $pdo->query('
-            SELECT 
-                r.ReservationID as id,
-                r.UserID as user_id,
-                u.Name as member_name,
-                r.ReservationDate as reservation_date,
-                r.ExpiryDate as expiry_date,
-                r.Status as status,
-                GROUP_CONCAT(DISTINCT b.Title SEPARATOR ", ") as books
-            FROM Reservation r
-            JOIN User u ON r.UserID = u.UserID
-            LEFT JOIN ReservationItem ri ON r.ReservationID = ri.ReservationID
-            LEFT JOIN Book b ON ri.ISBN = b.ISBN
-            GROUP BY r.ReservationID
-            ORDER BY r.ReservationDate DESC
-            LIMIT 100
-        ');
-        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        http_response_code(200);
-        echo json_encode($reservations);
+        // Get all reservations with details, optionally filtered by user_id
+        $userId = $_GET['user_id'] ?? null;
+        
+        if ($userId) {
+            // Get reservations for specific user with individual book details
+            $stmt = $pdo->prepare('
+                SELECT 
+                    r.ReservationID as reservation_id,
+                    r.UserID as user_id,
+                    r.ReservationDate as reservation_date,
+                    r.ExpiryDate as expiry_date,
+                    r.Status as reservation_status,
+                    ri.ISBN as isbn,
+                    b.Title as title,
+                    b.Author as author,
+                    b.Genre as category,
+                    b.Status as book_status,
+                    b.ShelfLocation as shelf_location,
+                    b.CoverImage as cover_image,
+                    b.PublicationYear as publication_year
+                FROM Reservation r
+                LEFT JOIN ReservationItem ri ON r.ReservationID = ri.ReservationID
+                LEFT JOIN Book b ON ri.ISBN = b.ISBN
+                WHERE r.UserID = ?
+                ORDER BY r.ReservationDate DESC
+            ');
+            $stmt->execute([$userId]);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            http_response_code(200);
+            echo json_encode($results);
+        } else {
+            // Get all reservations (grouped for admin view)
+            $stmt = $pdo->query('
+                SELECT 
+                    r.ReservationID as id,
+                    r.UserID as user_id,
+                    u.FirstName as member_first_name,
+                    u.LastName as member_last_name,
+                    CONCAT(u.FirstName, " ", u.LastName) as member_name,
+                    r.ReservationDate as reservation_date,
+                    r.ExpiryDate as expiry_date,
+                    r.Status as status,
+                    GROUP_CONCAT(DISTINCT b.Title SEPARATOR ", ") as books
+                FROM Reservation r
+                JOIN User u ON r.UserID = u.UserID
+                LEFT JOIN ReservationItem ri ON r.ReservationID = ri.ReservationID
+                LEFT JOIN Book b ON ri.ISBN = b.ISBN
+                GROUP BY r.ReservationID
+                ORDER BY r.ReservationDate DESC
+                LIMIT 100
+            ');
+            
+            $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            http_response_code(200);
+            echo json_encode($reservations);
+        }
 
     } elseif ($method === 'POST') {
         // Create new reservation

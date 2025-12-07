@@ -1,0 +1,31 @@
+/* Authentication Pages Styles - Signup and Login */
+
+/* Signup form specific styles */
+.signup-form-icon {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+}
+
+/* Make address textarea same height as phone input */
+.signup-form #address {
+    border-left: none !important;
+    min-height: 48px;
+    max-height: 48px;
+    resize: none;
+    overflow: hidden;
+}
+
+/* Consistent styling for all form inputs */
+.signup-form .form-control {
+    border-left: none !important;
+    min-height: 48px;
+}
+
+.signup-form .input-group-lg .input-group-text {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+}

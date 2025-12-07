@@ -3,7 +3,7 @@ session_start();
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, X-Debug-Auth');
+header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -13,57 +13,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require 'config.php';
 $pdo = require __DIR__ . '/db.php';
 
-$data = json_decode(file_get_contents('php://input'), true) ?: [];
-$email = $data['email'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    exit;
+}
 
-// debug-only login: requires DEBUG_AUTH true or header
-$debugHeader = (isset($_SERVER['HTTP_X_DEBUG_AUTH']) && $_SERVER['HTTP_X_DEBUG_AUTH'] === 'true');
-if (!$email) {
+$data = json_decode(file_get_contents('php://input'), true) ?: [];
+$email = trim($data['email'] ?? '');
+$password = $data['password'] ?? '';
+$userType = trim($data['userType'] ?? '');
+
+if (empty($email) || empty($password) || empty($userType)) {
     http_response_code(400);
-    echo json_encode(['error' => 'email required']);
+    echo json_encode(['success' => false, 'message' => 'Email, password, and user type are required']);
     exit;
 }
 
 try {
-    // Try Employee first
-    $stmt = $pdo->prepare('SELECT EmployeeID, Name, Role, Email FROM Employee WHERE Email = ? LIMIT 1');
-    $stmt->execute([$email]);
-    $emp = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($userType === 'user') {
+        // Check User table
+        $stmt = $pdo->prepare('SELECT UserID, FirstName, LastName, Email, Phone, Address, Password, IsStaff, UserType, MaxBooks, ProfilePhoto FROM User WHERE Email = ? LIMIT 1');
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($emp) {
-        if (!$config['debug_auth'] && !$debugHeader) {
-            http_response_code(403);
-            echo json_encode(['error' => 'Debug auth disabled']);
+        if ($user && password_verify($password, $user['Password'])) {
+            $userData = [
+                'id' => $user['UserID'],
+                'firstName' => $user['FirstName'],
+                'lastName' => $user['LastName'],
+                'email' => $user['Email'],
+                'phone' => $user['Phone'],
+                'address' => $user['Address'],
+                'role' => 'User',
+                'isStaff' => (bool)$user['IsStaff'],
+                'userType' => $user['UserType'],
+                'maxBooks' => $user['MaxBooks'],
+                'profilePhoto' => $user['ProfilePhoto']
+            ];
+            
+            $_SESSION['user'] = $userData;
+            
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $userData
+            ]);
             exit;
         }
-        $_SESSION['user'] = ['id' => $emp['EmployeeID'], 'role' => $emp['Role'], 'name' => $emp['Name']];
-        http_response_code(200);
-        echo json_encode(['success' => true, 'message' => 'Logged in as employee', 'user' => $_SESSION['user']]);
-        exit;
-    }
+    } elseif ($userType === 'librarian' || $userType === 'admin') {
+        // Check Employee table
+        $stmt = $pdo->prepare('SELECT EmployeeID, FirstName, LastName, Email, Phone, Address, Password, Role, MaxBooks, ProfilePhoto FROM Employee WHERE Email = ? AND Role = ? LIMIT 1');
+        $stmt->execute([$email, ucfirst($userType)]);
+        $employee = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Try User
-    $stmt = $pdo->prepare('SELECT UserID, Name, Email FROM User WHERE Email = ? LIMIT 1');
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        if (!$config['debug_auth'] && !$debugHeader) {
-            http_response_code(403);
-            echo json_encode(['error' => 'Debug auth disabled']);
+        if ($employee && password_verify($password, $employee['Password'])) {
+            $userData = [
+                'id' => $employee['EmployeeID'],
+                'firstName' => $employee['FirstName'],
+                'lastName' => $employee['LastName'],
+                'email' => $employee['Email'],
+                'phone' => $employee['Phone'],
+                'address' => $employee['Address'],
+                'role' => $employee['Role'],
+                'maxBooks' => $employee['MaxBooks'],
+                'profilePhoto' => $employee['ProfilePhoto']
+            ];
+            
+            $_SESSION['user'] = $userData;
+            
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $userData
+            ]);
             exit;
         }
-        $_SESSION['user'] = ['id' => $user['UserID'], 'role' => 'User', 'name' => $user['Name']];
-        http_response_code(200);
-        echo json_encode(['success' => true, 'message' => 'Logged in as user', 'user' => $_SESSION['user']]);
-        exit;
     }
 
-    http_response_code(404);
-    echo json_encode(['success' => false, 'error' => 'User not found']);
+    // Invalid credentials
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Login failed', 'details' => $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Login failed',
+        'error' => $e->getMessage()
+    ]);
 }
 ?>
